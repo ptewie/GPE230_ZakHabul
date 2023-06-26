@@ -24,6 +24,10 @@ private:
 		float moveSpeed;
 	UPROPERTY(EditAnywhere)
 		float rotationSpeed;
+	UPROPERTY(EditAnywhere)
+		UAnimSequence* _deathAnim;
+	UPROPERTY(EditAnywhere)
+		bool _isDead = false;
 
 protected:
 	/// <summary>
