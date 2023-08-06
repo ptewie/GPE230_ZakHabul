@@ -23,4 +23,6 @@ public:
 	
 	UFUNCTION() //if the overlapping actor is the player, it calls the open door function
 		void OpenDoor();
+
+
 };

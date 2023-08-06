@@ -4,6 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
+
+
 #include "MazeCharacter.generated.h"
 
 
@@ -28,8 +33,10 @@ private:
 		UAnimSequence* _deathAnim;
 	UPROPERTY(EditAnywhere)
 		bool _isDead = false;
+	UPROPERTY(EditAnywhere)
+		UNiagaraSystem* _stunSystem;
 
-protected:
+public:
 	/// <summary>
 	/// The current health of the actor
 	/// </summary>
@@ -41,6 +48,7 @@ public:
 	/// </summary>
 	UPROPERTY(EditAnywhere)
 		float maxHealth;
+
 
 public:
 	// Sets default values for this character's properties
@@ -62,12 +70,21 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
+
 // Function stubs 
 private:
 	void MoveFB(float value); //Float parameter is scale from input axes
 	void MoveLR(float value);
+
 	void Rotate(float value);
 
-
+	UFUNCTION(BlueprintCallable)
+	void ActivateStunParticleSystem();
+	
+public:
+	UFUNCTION(BlueprintCallable)
+	float HealPlayer(float healthHealed);
+	UFUNCTION(BlueprintCallable)
+	float SpeedPlayer(float speedIncreased);
 
 };

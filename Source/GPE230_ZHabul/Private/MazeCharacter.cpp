@@ -18,6 +18,8 @@ void AMazeCharacter::BeginPlay()
 	_currentHealth = maxHealth;
 	
 }
+
+
 /// <summary>
 /// apply incoming damage to health and check if the player was killed
 /// </summary>
@@ -90,6 +92,60 @@ void AMazeCharacter::Rotate(float value)
 {
 	AddControllerYawInput(value * rotationSpeed);
 }
+
+void AMazeCharacter::ActivateStunParticleSystem()
+{
+	if (_stunSystem)
+	{
+		USceneComponent* AttachComp = GetDefaultAttachComponent();
+
+		//Spawns instance of particle system and attaches to player
+		UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAttached(_stunSystem, AttachComp, NAME_None,
+			FVector(0), FRotator(0), EAttachLocation::Type::KeepRelativeOffset, true);
+
+		//Activate the system
+		NiagaraComp->Activate();
+	
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Player attempted to use sun ability, but no template particle system has been found"));
+	}
+}
+
+float AMazeCharacter::HealPlayer(float healthHealed)
+{
+	if (!_isDead)
+	{
+		if ((_currentHealth + healthHealed) >= maxHealth)
+		{
+			_currentHealth = maxHealth;
+
+		}
+		else
+		{
+			_currentHealth += healthHealed;
+
+		}
+		UE_LOG(LogTemp, Log, TEXT("current health: %f, healedhealth: %f"), _currentHealth, healthHealed);
+		return healthHealed;
+
+	}
+	else
+		return 0;
+}
+
+float AMazeCharacter::SpeedPlayer(float speedIncreased)
+{
+	if (!_isDead)
+	{
+		moveSpeed += speedIncreased;
+	}
+	UE_LOG(LogTemp, Log, TEXT("movespeed is now: %f, increased by %f"), moveSpeed, speedIncreased);
+	return speedIncreased;
+}
+
+
 
 
 

@@ -10,7 +10,7 @@
 // Sets default values
 ANPCEnemy::ANPCEnemy()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	// Set this character to call Tick() every frame.  You    turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 }
@@ -23,7 +23,7 @@ void ANPCEnemy::BeginPlay()
 }
 
 void ANPCEnemy::DetectHit()
-{
+ {
 	bool canDamage = true;
 
 	//Get location of the first
@@ -46,15 +46,15 @@ void ANPCEnemy::DetectHit()
 	FString ownerName = this->GetName();
 	
 	//if is valid hit
-	if (Hit) 
+	if (Hit)
 	{
-		for (const FHitResult HitResult : HitArray) 
+		for (const FHitResult HitResult : HitArray)
 		{
 			if (canDamage)
 			{
 				FString hitActorName = HitResult.GetActor()->GetName();
 
-				UE_LOG(LogTemp, Log, TEXT("NPCEnemy actor \"%s\" hit other actor \"%s\", dealing %f damage."), *ownerName, *hitActorName, _HitDamage);
+				UE_LOG(LogTemp, Log, TEXT("NPCE actor \"%s\" hit other actor \"%s\", dealing %f damage."), *ownerName, *hitActorName, _HitDamage);
 
 				//Apply damage to the hit actor
 
@@ -65,10 +65,11 @@ void ANPCEnemy::DetectHit()
 		}
 	}
 	else
-	{
+		{
 		UE_LOG(LogTemp, Log, TEXT("NPCEnemy actor \"s\" did not detect any valid hits on it's last attack."), *ownerName);
+		}
 	}
-}
+
 
 // Called every frame
 void ANPCEnemy::Tick(float DeltaTime)
