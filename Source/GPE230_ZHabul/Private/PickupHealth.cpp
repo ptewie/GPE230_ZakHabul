@@ -7,6 +7,6 @@
 
 void APickupHealth::ApplyEffects(AMazeCharacter* appliedCharacter)
 {
-	UE_LOG(LogTemp, Log, TEXT("player actor! upgrading speed!!"));
+	UE_LOG(LogTemp, Log, TEXT("player actor! healing!"));
 	Cast<AMazeCharacter>(appliedCharacter)->HealPlayer(healthAmount);
 }
