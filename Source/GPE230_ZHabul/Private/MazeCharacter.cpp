@@ -11,11 +11,39 @@ AMazeCharacter::AMazeCharacter()
 
 }
 
+void AMazeCharacter::OpenGameOverScreen()
+{
+	_gameOverScreenInstance->AddToViewport();
+	ShowMouseCursor();
+	
+	
+}
+
+void AMazeCharacter::PauseGameplay(bool bIsPaused)
+{
+	_controller->SetPause(bIsPaused);
+}
+
+void AMazeCharacter::ShowMouseCursor()
+{
+	_controller->bShowMouseCursor = true;
+}
+
 // Called when the game starts or when spawned
 void AMazeCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	_currentHealth = maxHealth;
+
+	_controller = Cast<APlayerController>(GetController()); //getting player controller
+
+	_currentHealth = maxHealth; // setting intial max health
+
+	//creating widgets from intial vars
+	_playerHUDInstance = CreateWidget(GetWorld(), _playerHUDTemplate);
+	_playerHUDInstance->AddToViewport(); //Hud should spawn as soon as player does, so it's added to the viewport here
+
+	_gameOverScreenInstance = CreateWidget(GetWorld(), _gameOverScreenTemplate);
+	_victoryScreenInstance = CreateWidget(GetWorld(), _victoryScreenTemplate);
 	
 }
 
@@ -54,6 +82,7 @@ void AMazeCharacter::Die()
 	rotationSpeed = 0; //placeholder for now
 
 	GetMesh()->PlayAnimation(_deathAnim, false);
+	OpenGameOverScreen();
 
 	//TODO: trigger game over state and prompt the player to restart the level
 }
@@ -74,6 +103,17 @@ void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis(TEXT("MoveFB"), this, &AMazeCharacter::MoveFB);
 	PlayerInputComponent->BindAxis(TEXT("MoveLR"), this, &AMazeCharacter::MoveLR);
 	PlayerInputComponent->BindAxis(TEXT("Rotate"), this, &AMazeCharacter::Rotate);
+
+}
+
+void AMazeCharacter::OpenVictoryScreen()
+{
+	UE_LOG(LogTemp, Log, TEXT("victory screen called"));
+	_victoryScreenInstance->AddToViewport();
+	ShowMouseCursor();
+	PauseGameplay(true);
+
+
 
 }
 
