@@ -46,6 +46,8 @@ void APickup::OnPlayerEnterPickupBox(UPrimitiveComponent* OverlappedComp, AActor
 	if (OtherActor->IsA(AMazeCharacter::StaticClass())) 
 	{		
 		ApplyEffects(Cast<AMazeCharacter>(OtherActor));
+		UGameplayStatics::PlaySound2D(this, _pickupSound);
+
 		UE_LOG(LogTemp, Log, TEXT("Pickup Collected! Destroying object"));
 		Destroy(); //When walked into box, destroy the pickup
 	} 

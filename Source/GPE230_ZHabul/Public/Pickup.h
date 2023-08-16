@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "MazeCharacter.h"
+#include "Sound/SoundWave.h"
+#include "Kismet/GameplayStatics.h"
 #include "Pickup.generated.h"
 
 UCLASS()
@@ -33,6 +35,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UShapeComponent* PickupBox;
+	
+	UPROPERTY(EditAnywhere)
+	USoundWave* _pickupSound;
 
 	UFUNCTION()
 	//When overlap event happens, activate function
