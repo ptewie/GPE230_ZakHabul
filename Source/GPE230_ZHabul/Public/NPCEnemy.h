@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Sound/SoundWave.h"
+#include "Kismet/GameplayStatics.h"
 #include "NPCEnemy.generated.h"
 
 UCLASS()
@@ -33,10 +35,12 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-		float _TraceRadius = 500.0f;
+		float _TraceRadius = 300.0f;
 	UPROPERTY(EditAnywhere)
 		FName _PunchingHandSocketName;
 	UPROPERTY(EditAnywhere)
 		float _HitDamage; 
+	UPROPERTY(EditAnywhere)
+		USoundWave* _punchSound;
 
 };

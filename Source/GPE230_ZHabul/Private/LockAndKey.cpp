@@ -15,6 +15,7 @@ void ALockAndKey::CheckActorType(class AActor* OverlappedActor, class AActor* Ot
 {
 	if (OtherActor->IsA(AMazeCharacter::StaticClass())) //If maze character, do the open door function
 	{
+		UGameplayStatics::PlaySound2D(this, _doorOpenSound);
 		OpenDoor();
 	} 
 }

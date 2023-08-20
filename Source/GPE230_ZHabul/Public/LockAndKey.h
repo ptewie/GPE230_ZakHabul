@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Engine/TriggerBox.h"
+#include "Sound/SoundWave.h"
+#include "Kismet/GameplayStatics.h"
 #include "LockAndKey.generated.h"
 
 /**
@@ -23,6 +25,9 @@ public:
 	
 	UFUNCTION() //if the overlapping actor is the player, it calls the open door function
 		void OpenDoor();
+
+	UPROPERTY(EditAnywhere)
+		USoundWave* _doorOpenSound;
 
 
 };

@@ -56,9 +56,10 @@ void ANPCEnemy::DetectHit()
 
 				UE_LOG(LogTemp, Log, TEXT("NPCE actor \"%s\" hit other actor \"%s\", dealing %f damage."), *ownerName, *hitActorName, _HitDamage);
 
-				//Apply damage to the hit actor
+				//Apply damage to the hit actor, then play sfx
 
 				UGameplayStatics::ApplyDamage(HitResult.GetActor(), _HitDamage, GetController(), this, UDamageType::StaticClass());
+				UGameplayStatics::PlaySound2D(this, _punchSound);
 
 				canDamage = false;
 			}
